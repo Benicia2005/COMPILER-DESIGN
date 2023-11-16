@@ -1,39 +1,22 @@
 #include <stdio.h>
 
 int main() {
-    FILE *file;
-    char filename[100];
-    char ch;
-    int spaceCount = 0, newlineCount = 0;
+    int temp = 1;
+    char op1, op2, a1, a2, res1, res2;
 
-    // Get the filename from the user
-    printf("Enter the filename: ");
-    scanf("%s", filename);
+    printf("Enter an expression: ");
+    scanf(" %c %c %c %c %c", &res1, &op1, &a1, &op2, &a2);
 
-    // Open the file
-    file = fopen(filename, "r");
-
-    // Check if the file exists
-    if (file == NULL) {
-        perror("Error opening file");
-        return 1;
+    
+    if (op2 == '*') {
+        printf("t%d = %c %c %c\n", temp, a1, op2, a2);
+        temp++;
+        printf("t%d = %c %c t%d\n", temp, res1, op1, temp-1);
+    } else {
+        printf("t%d = %c %c %c\n", temp, res1, op1, a1);
+        temp++;
+        printf("t%d = t%d %c %c\n", temp, temp - 1, op2, a2);
     }
-
-    // Read the file character by character
-    while ((ch = fgetc(file)) != EOF) {
-        if (ch == ' ') {
-            spaceCount++;
-        } else if (ch == '\n') {
-            newlineCount++;
-        }
-    }
-
-    // Close the file
-    fclose(file);
-
-    // Print the results
-    printf("Number of whitespaces: %d\n", spaceCount);
-    printf("Number of newline characters: %d\n", newlineCount);
 
     return 0;
 }
